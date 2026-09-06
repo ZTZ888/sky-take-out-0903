@@ -106,6 +106,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
 
@@ -117,5 +122,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return new PageResult (total,records);
     }
+
+    /**
+     * 禁用启用员工账号
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(String status, long id) {
+
+        Employee employee = new Employee();
+
+        employee.setStatus(Integer.parseInt(status));
+        employee.setId(id);
+        employeeMapper.update(employee);
+    }
+
 
 }
