@@ -35,6 +35,7 @@ public class EmployeeController {
     @Autowired
     private JwtProperties jwtProperties;
 
+
     /**
      * 登录
      * @param employeeLoginDTO
@@ -65,6 +66,7 @@ public class EmployeeController {
         return Result.success(employeeLoginVO);
     }
 
+
     /**
      * 退出
      * @return
@@ -75,6 +77,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+    /**
+     * 新增员工
+     * @param employeeDTO
+     * @return
+     */
     @PostMapping
     @ApiOperation(value = "新增员工")
     public Result save(@RequestBody EmployeeDTO employeeDTO){
@@ -82,6 +90,7 @@ public class EmployeeController {
         employeeService.save(employeeDTO);
         return Result.success();
     }
+
 
     /**
      * 员工分页查询
@@ -99,17 +108,43 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+
     /**
      * 启用禁用员工账号
      * @param status
      * @param id
      * @return
      */
-    @RequestMapping("/status/{status}")
+    @PostMapping("/status/{status}")
     @ApiOperation(value = "启用禁用员工账号")
     public Result startOrStop(@PathVariable String status,long id){
         log.info("启用禁用员工账号:{},{}",status,id);
         employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+
+    /**
+     * 根据员工id查找员工信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据员工id查找员工信息")
+    public Result<Employee> getByID(@PathVariable long id){
+        Employee employee = employeeService.getByID(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation(value = "编辑员工信息")
+    public Result editMess(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.update(employeeDTO);
         return Result.success();
     }
 }

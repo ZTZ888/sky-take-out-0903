@@ -35,5 +35,17 @@ public interface EmployeeMapper {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 动态修改属性
+     * @param employee
+     */
     void update(Employee employee);
+
+
+    /**
+     * 通过id获取员工信息
+     * @return
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee getByID(long id);
 }
