@@ -15,7 +15,7 @@
         where id = #{id}
     </update>
 
-    <select id="pageQuery" resultType="com.github.pagehelper.Page">
+    <select id="pageQuery" resultType="com.sky.entity.Category">
         select * from category
         <where>
             <if test="name != null and name != ''">

@@ -85,6 +85,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 设置账号密码
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
+
+        /* 通过AOP解决代码重复冗杂的问题，这些代码逻辑已不再需要
         // 设置创建时间和修改时间
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
@@ -92,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 设置当前记录创建人id和修改人id
         // 利用所有前端所有命令都共用一个线程，ThreadLocal去获取id
         employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());  */
 
         // 1. 插入前，先查一下数据库是否已存在该用户名
         Employee existEmployee = employeeMapper.getByUsername(employee.getUsername());
@@ -159,8 +161,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
+
+       /* 代码逻辑已通过AOP解决
         employee.setUpdateUser(BaseContext.getCurrentId());
-        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());*/
         employeeMapper.update(employee);
     }
 

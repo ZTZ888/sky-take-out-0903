@@ -45,7 +45,7 @@ public class CategoryController {
      */
     @PutMapping
     @ApiOperation(value = "修改分类")
-    public Result update(CategoryDTO categoryDTO){
+    public Result<String> update(@RequestBody CategoryDTO categoryDTO){
         categoryService.update(categoryDTO);
         return Result.success();
     }

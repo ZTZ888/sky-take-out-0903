@@ -43,8 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO) {
         PageHelper.startPage(categoryPageQueryDTO.getPage(),categoryPageQueryDTO.getPageSize());
-        Page<Employee> page = categoryMapper.pageQuery(categoryPageQueryDTO);
-        List<Employee> result = page.getResult();
+        Page<Category> page = categoryMapper.pageQuery(categoryPageQueryDTO);
+        List<Category> result = page.getResult();
         long total = page.getTotal();
         return new PageResult(total,result);
     }
@@ -58,8 +58,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void update(CategoryDTO categoryDTO) {
         Category category = new Category();
         BeanUtils.copyProperties(categoryDTO,category);
+        /* 代码逻辑已通过AOP实现
         category.setUpdateUser(BaseContext.getCurrentId());
-        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateTime(LocalDateTime.now());*/
         categoryMapper.update(category);
     }
 
@@ -90,11 +91,12 @@ public class CategoryServiceImpl implements CategoryService {
         BeanUtils.copyProperties(categoryDTO,category);
         //分类状态默认为禁用状态0
         category.setStatus(StatusConstant.DISABLE);
+        /*代码逻辑已通过AOP实现
         //设置创建时间、修改时间、创建人、修改人
         category.setCreateTime(LocalDateTime.now());
         category.setUpdateTime(LocalDateTime.now());
         category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        category.setUpdateUser(BaseContext.getCurrentId());*/
         categoryMapper.insert(category);
     }
 
@@ -111,7 +113,7 @@ public class CategoryServiceImpl implements CategoryService {
             //当前分类下有菜品，不能删除
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
         }
-//查询当前分类是否关联了套餐，如果关联了就抛出业务异常
+        //查询当前分类是否关联了套餐，如果关联了就抛出业务异常
         count = setmealMapper.countByCategoryId(id);
         if(count > 0){
             //当前分类下有菜品，不能删除
