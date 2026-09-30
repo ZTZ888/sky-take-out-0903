@@ -22,6 +22,7 @@ import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -152,7 +153,7 @@ public class DishSeriviceImpl implements DishService {
     }
 
     /**
-     * 根据分类id查询菜品和对应的口味信息
+     * 根据分类id查询菜品
      * @param categoryId
      * @return
      */
@@ -164,5 +165,25 @@ public class DishSeriviceImpl implements DishService {
                 .build();
         List<Dish> list = dishMapper.list(dish);
         return list;
+    }
+
+    /**
+     * 根据分类id查询菜品以及其口味
+     * @param dish
+     * @return
+     */
+    @Override
+    public List<DishVO> listWithFlavors(Dish dish) {
+        List<Dish> dishList = dishMapper.list(dish);
+        List<DishVO> dishVOList = new ArrayList<>();
+
+        for(Dish d: dishList){
+            DishVO dishVO = new DishVO();
+            BeanUtils.copyProperties(d,dishVO);
+            List<DishFlavor> flavors = dishFlavorMapper.getById(d.getId());
+            dishVO.setFlavors(flavors);
+            dishVOList.add(dishVO);
+        }
+        return dishVOList;
     }
 }
