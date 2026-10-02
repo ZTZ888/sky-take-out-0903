@@ -186,4 +186,18 @@ public class DishSeriviceImpl implements DishService {
         }
         return dishVOList;
     }
+
+    /**
+     * 停售起售
+     * @param status
+     * @param id
+     */
+    @Override
+    public void stopOrStart(Integer status, Long id) {
+        Dish dish = new Dish();
+        dish.setStatus(status);
+        dish.setId(id);
+        log.info("菜品{}的状态被修改为：{}",id,status==1?"起售":"停售");
+        dishMapper.update(dish);
+    }
 }

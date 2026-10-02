@@ -3,4 +3,6 @@ package com.sky.constant;
 public class RedisConstant {
     // 店铺缓存
     public static final String CACHE_SHOP_STATUS = "cache:shop:status:";
+    // 分类下菜品缓存
+    public static final String DISH = "dish_";
 }
