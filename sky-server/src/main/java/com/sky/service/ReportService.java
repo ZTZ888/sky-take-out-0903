@@ -2,6 +2,8 @@ package com.sky.service;
 
 import com.sky.vo.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
 
 public interface ReportService {
@@ -38,4 +40,9 @@ public interface ReportService {
      * @return
      */
     SalesTop10ReportVO getTop10Statistics(LocalDate begin, LocalDate end);
+
+    /**
+     * 导出报表
+     */
+    void export(HttpServletResponse response) throws IOException;
 }
