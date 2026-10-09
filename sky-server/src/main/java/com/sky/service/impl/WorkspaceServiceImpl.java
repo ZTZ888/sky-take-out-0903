@@ -60,7 +60,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         turnover = turnover == null? 0.0 : turnover;
 
         //有效订单数
-        Integer validOrderCount = orderMapper.getValidAmount(end);
+        Integer validOrderCount = orderMapper.getDayValidAmount(begin, end);
 
         Double unitPrice = 0.0;
 
