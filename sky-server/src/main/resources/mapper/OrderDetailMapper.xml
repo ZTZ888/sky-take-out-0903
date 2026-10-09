@@ -11,4 +11,15 @@
         </foreach>
     </insert>
 
+    <select id="getDishSales" resultType="com.sky.dto.GoodsSalesDTO">
+        select od.name, sum(od.number) number from order_detail od join orders
+            where od.order_id = orders.id
+            and orders.status = 5
+            and orders.order_time &gt;= #{beginTime}
+            and orders.order_time &lt;= #{endTime}
+            group by od.name
+            order by number desc
+            limit 0,10
+    </select>
+
 </mapper>

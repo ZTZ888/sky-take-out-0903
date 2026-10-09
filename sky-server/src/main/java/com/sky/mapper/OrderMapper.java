@@ -79,4 +79,38 @@ public interface OrderMapper {
             @Param("end") LocalDateTime end,
             @Param("status") Integer status
     );
+
+    /**
+     * 统计end之前的订单总数
+     * @param end
+     * @return
+     */
+    @Select("select count(id) from orders where order_time <= #{end}")
+    Integer getTotalAmount(LocalDateTime end);
+
+    /**
+     * 统计每天的订单总数
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    @Select("select count(id) from orders where order_time >= #{beginTime} and order_time <= #{endTime}")
+    Integer getDayAmount(LocalDateTime beginTime, LocalDateTime endTime);
+
+    /**
+     * 统计end之前有效的订单总数
+     * @param end
+     * @return
+     */
+    @Select("select count(orders.id) from orders where order_time <= #{end} and status = 5")
+    Integer getValidAmount(LocalDateTime end);
+
+    /**
+     * 统计每天的有效订单数
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    @Select("select count(id) from orders where order_time >= #{beginTime} and order_time <= #{endTime} and status = 5")
+    Integer getDayValidAmount(LocalDateTime beginTime, LocalDateTime endTime);
 }
