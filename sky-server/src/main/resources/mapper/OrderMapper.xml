@@ -46,4 +46,14 @@
             </if>
         </where>
     </select>
+
+    <select id="sumTurnoverByDate" resultType="java.lang.Double">
+        select ifnull(sum(amount), 0) from orders
+        <where>
+            order_time &gt;= #{begin}
+          and order_time &lt;= #{end}
+          and status = #{status}
+        </where>
+    </select>
+
 </mapper>

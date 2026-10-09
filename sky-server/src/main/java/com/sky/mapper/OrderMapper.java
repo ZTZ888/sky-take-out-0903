@@ -4,10 +4,13 @@ import com.github.pagehelper.Page;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -63,4 +66,17 @@ public interface OrderMapper {
      */
     @Select("select * from orders where status = #{status} and order_time < #{outTime}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime outTime);
+
+    /**
+     * 根据日期集合查询营业额集合
+     * @param begin
+     * @param end
+     * @param status
+     * @return
+     */
+    Double sumTurnoverByDate(
+            @Param("begin") LocalDateTime begin,
+            @Param("end") LocalDateTime end,
+            @Param("status") Integer status
+    );
 }

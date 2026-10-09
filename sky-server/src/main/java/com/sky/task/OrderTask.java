@@ -21,7 +21,8 @@ public class OrderTask {
     /**
      * 处理超时订单
      */
-    @Scheduled(cron = "0 0/2 * * * ?")
+    // 因为log太多了影响后面功能调试，先关闭
+/*    @Scheduled(cron = "0 0/2 * * * ?")
     public void processTimeoutOrder(){
         log.info("定时处理超时订单：{}", LocalDateTime.now());
         LocalDateTime outTime = LocalDateTime.now().plusMinutes(-15);
@@ -41,7 +42,7 @@ public class OrderTask {
             log.info("本次未发现超时订单");
         }
     }
-
+*/
     /**
      * 处理状态一直为派送中的订单
      */
