@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -113,4 +114,11 @@ public interface OrderMapper {
      */
     @Select("select count(id) from orders where order_time >= #{beginTime} and order_time <= #{endTime} and status = 5")
     Integer getDayValidAmount(LocalDateTime beginTime, LocalDateTime endTime);
+
+    /**
+     * 根据动态条件统计订单数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }
